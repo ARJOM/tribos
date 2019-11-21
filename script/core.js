@@ -67,3 +67,11 @@ function logout() {
 
 // Update de usuário
 
+// Validação
+
+function validacao(){
+    var user = firebase.auth().currentUser;
+    if (user == null) {
+        window.location.href = "html/login.html";
+    }
+}
