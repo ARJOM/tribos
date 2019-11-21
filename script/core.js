@@ -10,7 +10,7 @@ function login() {
         .then(function (result) {
             console.log(result);
             window.alert("Logado na conta " + email);
-            window.location.href = "index.html";
+            window.location.href = "../index.html";
         })
         .catch(function (error) {
             console.error(error.code);
@@ -64,3 +64,6 @@ function logout() {
         });
     }
 }
+
+// Update de usuário
+
