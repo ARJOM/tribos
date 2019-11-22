@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Cadastro</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
     <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2d7d674aab.js"></script>
@@ -11,24 +11,30 @@
 
 <body>
     <div class="main-form">
-        <div id="login" class="form">
-            <h2>Faça Login</h2>
+        <div id="cadastro" class="form">
+            <h2>Cadastro</h2>
             <div class="campos-form">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" placeholder="Ex: João Ferreira">
                 <label for="email">Email:</label>
-                <input type="text" id="email">
+                <input type="email" id="email" placeholder="seuemail@email.com">
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha">
-                <button onclick="login()">
-                    <h3>Login</h3>
+                <input type="password" id="senha" placeholder="*********">
+                <label for="data de nascimento">Data de nascimento:</label>
+                <input type="date" id="nascimento">
+                <label for="genero">Gênero:</label>
+                <input type="radio" name="genero" value="m" checked> Masculino
+                <input type="radio" name="genero" value="f"> Feminino
+                <button onclick="cadastro()">
+                    <h3>Cadastrar</h3>
                 </button>
                 <h5>
-                    Cadastre-se
-                    <a href="cadastro.html">aqui</a>
+                    Já cadastrado? Faça 
+                <a href="login.html">Login</a>
                 </h5>
             </div>
         </div>
     </div>
-
     <!-- Scripts -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>

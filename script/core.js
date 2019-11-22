@@ -58,7 +58,7 @@ function logout() {
     var sure = window.confirm("Você está saindo da sua conta!\nTem certeza que deseja continuar?");
     if (sure) {
         firebase.auth().signOut().then(function () {
-            window.location.href = "login.html";
+            window.location.href = "html/login.html";
         }, function (error) {
             console.error(error);
         });
@@ -71,7 +71,19 @@ function logout() {
 
 function validacao(){
     var user = firebase.auth().currentUser;
+    window.alert(user);
     if (user == null) {
         window.location.href = "html/login.html";
     }
+}
+
+// Funções auxiliares
+
+function getChecked(lista) {
+    for (var i = 0; i < lista.length; i++) {
+        if (lista[i].checked) {
+            return lista[i].value;
+        }
+    }
+    return null;
 }
