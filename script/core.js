@@ -1,11 +1,11 @@
 //Globais
-var db = firebase.firestore();
+let db = firebase.firestore();
 
 //Usuário
 
 function login() {
-    var email = document.getElementById("email").value;
-    var senha = document.getElementById("senha").value;
+    let email = document.getElementById("email").value;
+    let senha = document.getElementById("senha").value;
     firebase.auth().signInWithEmailAndPassword(email, senha)
         .then(function (result) {
             console.log(result);
@@ -22,14 +22,14 @@ function login() {
 
 function cadastro() {
 
-    var usuarios = db.collection("users");
+    let usuarios = db.collection("users");
 
-    var nome = document.getElementById("nome").value;
-    var email = document.getElementById("email").value;
-    var senha = document.getElementById("senha").value;
-    var nascimento = document.getElementById("nascimento").value;
-    var radio = document.getElementsByName("genero");
-    var genero = getChecked(radio);
+    let nome = document.getElementById("nome").value;
+    let email = document.getElementById("email").value;
+    let senha = document.getElementById("senha").value;
+    let nascimento = document.getElementById("nascimento").value;
+    let radio = document.getElementsByName("genero");
+    let genero = getChecked(radio);
 
     firebase.auth().createUserWithEmailAndPassword(email, senha)
         .then(function () {
@@ -38,6 +38,9 @@ function cadastro() {
                 email: email,
                 birthday: nascimento,
                 gender: genero,
+                minWantedAge: null,
+                maxWantedAge: null,
+                wantedGender: null,
             });
         })
         .catch(function (error) {
@@ -55,11 +58,11 @@ function cadastro() {
 }
 
 function logout() {
-    var sure = window.confirm("Você está saindo da sua conta!\nTem certeza que deseja continuar?");
+    let sure = window.confirm("Você está saindo da sua conta!\nTem certeza que deseja continuar?");
     if (sure) {
         firebase.auth().signOut().then(function () {
             window.location.href = "html/login.html";
-        }, function (error) {
+        }).catch( function (error) {
             console.error(error);
         });
     }
@@ -67,20 +70,43 @@ function logout() {
 
 // Update de usuário
 
+function busca() {
+    let user = firebase.auth().currentUser;
+    let email;
+    if (user != null) {
+        email = user.email;
+    }
+    let usuarios = db.collection("users");
+
+    let minimo = document.getElementById("minimo").value;
+    minimo = parseInt(minimo);
+    let maximo = document.getElementById("maximo").value;
+    maximo = parseInt(maximo);
+    let radio = document.getElementsByName("genero");
+    let genero = getChecked(radio);
+
+    usuarios.doc(email).set({
+        minWantedAge: minimo,
+        maxWantedAge: maximo,
+        wantedGender: genero,
+    }, { merge: true });
+
+}
+
 // Validação
 
-function validacao(){
-    var user = firebase.auth().currentUser;
-    window.alert(user);
-    if (user == null) {
-        window.location.href = "html/login.html";
-    }
+function validacao() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user == null){
+            window.location.href = "html/login.html";
+        }
+    });
 }
 
 // Funções auxiliares
 
 function getChecked(lista) {
-    for (var i = 0; i < lista.length; i++) {
+    for (let i = 0; i < lista.length; i++) {
         if (lista[i].checked) {
             return lista[i].value;
         }
