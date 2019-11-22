@@ -144,6 +144,10 @@
     transition: .2s;
     font-size: 16px;
 }
+.campos-form input[type=radio]{
+    width: 20%;
+    height: 20px;
+}
 .campos-form button{
     width: 50%;
     height: 45px;
