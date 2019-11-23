@@ -70,33 +70,37 @@ function logout() {
 
 // Update de usuário
 
-function preencheUpdate() {
-    let user = firebase.auth().currentUser;
-    let email = user.email;
-    if (user != null) {
-        email = user.email;
-        console.log(email);
-    }
-    console.log(email);
+async function preencheUpdate() {
     let usuarios = db.collection("users");
 
-    // let usuario;
+    let email;
+    let lista = document.getElementsByName("genero");
 
-    // let lista = document.getElementsByName("genero");
-
-    usuarios.doc(email).get().then(function (doc) {
-        if (doc.exists) {
-            console.log("existe")
-            // document.getElementById("nome").value = name;
-            // document.getElementById("email").value = email;
-            // document.getElementById("nascimento").value = birthday;
-            // for (let i = 0; i < lista.length; i++) {
-            //     if (lista[i].value === gender) {
-            //         lista[i].checked = true;
-            //     }
-            // }
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log("Há logado!");
+            email = user.email;
+            usuarios.doc(email).get().then(function (doc) {
+                if (doc.exists) {
+                    let usuario = doc.data()
+                    document.getElementById("nome").value = usuario.name;
+                    document.getElementById("email").value = email;
+                    document.getElementById("nascimento").value = usuario.birthday;
+                    for (let i = 0; i < lista.length; i++) {
+                        if (lista[i].value === usuario.gender) {
+                            lista[i].checked = true;
+                        }
+                    }
+                }
+            });
+        } else {
+            validacao();
         }
     });
+
+    //
+
+
 
 }
 
@@ -128,7 +132,7 @@ function busca() {
 
 // Validação
 
-function validacao() {
+function validacaoIndex() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user == null) {
             window.location.href = "html/login.html";
@@ -136,6 +140,13 @@ function validacao() {
     });
 }
 
+function validacao() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user == null) {
+            window.location.href = "login.html";
+        }
+    });
+}
 // Funções auxiliares
 
 function getChecked(lista) {
