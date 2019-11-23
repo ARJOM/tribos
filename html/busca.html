@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Atualizar</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2d7d674aab.js"></script>
+</head>
+
+<body>
+
+    <div class="main-form">
+        <div id="login" class="form">
+            <h2>O que está buscando?</h2>
+            <div class="campos-form">
+                <label for="genero">Gênero procurado:</label>
+                <input type="radio" name="genero" value="m"> Masculino
+                <input type="radio" name="genero" value="f"> Feminino
+                <input type="radio" name="genero" value="a" checked> Ambos
+                <label for="idade">Idade Mínima</label>
+                <input type="text" id="minimo">
+                <label for="idade">Idade Máxima</label>
+                <input type="text" id="maximo">
+                <button onclick="busca()">
+                    <h3>Atualizar Busca</h3>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use 
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+    <script src="../script/firebase.js"></script>
+    <script src="../script/core.js"></script>
+</body>
+
+</html>

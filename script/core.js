@@ -61,8 +61,8 @@ function logout() {
     let sure = window.confirm("Você está saindo da sua conta!\nTem certeza que deseja continuar?");
     if (sure) {
         firebase.auth().signOut().then(function () {
-            window.location.href = "html/login.html";
-        }).catch( function (error) {
+            // window.location.href = "html/login.html";
+        }).catch(function (error) {
             console.error(error);
         });
     }
@@ -70,6 +70,37 @@ function logout() {
 
 // Update de usuário
 
+function preencheUpdate() {
+    let user = firebase.auth().currentUser;
+    let email = user.email;
+    if (user != null) {
+        email = user.email;
+        console.log(email);
+    }
+    console.log(email);
+    let usuarios = db.collection("users");
+
+    // let usuario;
+
+    // let lista = document.getElementsByName("genero");
+
+    usuarios.doc(email).get().then(function (doc) {
+        if (doc.exists) {
+            console.log("existe")
+            // document.getElementById("nome").value = name;
+            // document.getElementById("email").value = email;
+            // document.getElementById("nascimento").value = birthday;
+            // for (let i = 0; i < lista.length; i++) {
+            //     if (lista[i].value === gender) {
+            //         lista[i].checked = true;
+            //     }
+            // }
+        }
+    });
+
+}
+
+// Atualizando informações sobre o que o usuário procura
 function busca() {
     let user = firebase.auth().currentUser;
     let email;
@@ -89,15 +120,17 @@ function busca() {
         minWantedAge: minimo,
         maxWantedAge: maximo,
         wantedGender: genero,
-    }, { merge: true });
+    }, {
+        merge: true
+    });
 
 }
 
 // Validação
 
 function validacao() {
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user == null){
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user == null) {
             window.location.href = "html/login.html";
         }
     });

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Atualizar</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2d7d674aab.js"></script>
+</head>
+
+<body onload="preencheUpdate()">
+    <div class="main-form">
+        <div id="cadastro" class="form">
+            <h2>Atualize informações</h2>
+            <div class="campos-form">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" placeholder="Ex: João Ferreira">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="seuemail@email.com">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" placeholder="*********">
+                <label for="nascimento">Data de nascimento:</label>
+                <input type="date" id="nascimento">
+                <label for="genero">Gênero:</label>
+                <input type="radio" name="genero" value="m"> Masculino
+                <input type="radio" name="genero" value="f"> Feminino
+                <button onclick="update()">
+                    <h3>Atualizar</h3>
+                </button>
+<!--                <h5>-->
+<!--                    Já cadastrado? Faça-->
+<!--                    <a href="login.html">Login</a>-->
+<!--                </h5>-->
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use 
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+    <script src="../script/firebase.js"></script>
+    <script src="../script/core.js"></script>
+</body>
+
+</html>
