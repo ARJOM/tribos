@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/2d7d674aab.js"></script>
 </head>
 
-<body>
+<body onload="preencheBusca()">
 
     <div class="main-form">
         <div id="login" class="form">
@@ -19,9 +19,9 @@
                 <input type="radio" name="genero" value="m"> Masculino
                 <input type="radio" name="genero" value="f"> Feminino
                 <input type="radio" name="genero" value="a" checked> Ambos
-                <label for="idade">Idade Mínima</label>
+                <label for="minimo">Idade Mínima</label>
                 <input type="text" id="minimo">
-                <label for="idade">Idade Máxima</label>
+                <label for="maximo">Idade Máxima</label>
                 <input type="text" id="maximo">
                 <button onclick="busca()">
                     <h3>Atualizar Busca</h3>

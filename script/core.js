@@ -105,6 +105,35 @@ async function preencheUpdate() {
 }
 
 // Atualizando informações sobre o que o usuário procura
+function preencheBusca() {
+    let usuarios = db.collection("users");
+
+    let email;
+    let lista = document.getElementsByName("genero");
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log("Há logado!");
+            email = user.email;
+            usuarios.doc(email).get().then(function (doc) {
+                if (doc.exists) {
+                    let usuario = doc.data()
+                    document.getElementById("minimo").value = usuario.minWantedAge;
+                    document.getElementById("maximo").value = usuario.maxWantedAge;
+                    for (let i = 0; i < lista.length; i++) {
+                        if (lista[i].value === usuario.wantedGender) {
+                            lista[i].checked = true;
+                        }
+                    }
+                }
+            });
+        } else {
+            validacao();
+        }
+    });
+
+}
+
 function busca() {
     let user = firebase.auth().currentUser;
     let email;
