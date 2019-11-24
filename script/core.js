@@ -108,6 +108,7 @@ function update() {
     let nome = document.getElementById("nome").value;
     let email = document.getElementById("email").value;
     let senha = document.getElementById("senha").value;
+    let novaSenha = document.getElementById("novaSenha").value;
     let nascimento = document.getElementById("nascimento").value;
     let radio = document.getElementsByName("genero");
     let genero = getChecked(radio);
@@ -115,30 +116,32 @@ function update() {
     let emailAtual = user.email;
 
     firebase.auth().signInWithEmailAndPassword(emailAtual, senha).then(function () {
-        user.updateEmail(email).then(function () {
-            usuarios.doc(emailAtual).set({
-                name: nome,
-                email: email,
-                birthday: nascimento,
-                gender: genero,
-            }, {
-                merge: true
-            });
-            usuarios.doc(emailAtual).get().then(function (doc) {
-                if (doc.exists) {
-                    let usuario = doc.data();
-                    usuarios.doc(user.email).set(usuario); //Criando novo usuário
-                    if (emailAtual !== user.email) {
-                        usuarios.doc(emailAtual).delete().then(function () {}).catch(function (error) {
-                            console.error("Error removing document: ", error);
-                        });
+        user.updatePassword(novaSenha).then(function () {
+            user.updateEmail(email).then(function () {
+                usuarios.doc(emailAtual).set({
+                    name: nome,
+                    email: email,
+                    birthday: nascimento,
+                    gender: genero,
+                }, {
+                    merge: true
+                });
+                usuarios.doc(emailAtual).get().then(function (doc) {
+                    if (doc.exists) {
+                        let usuario = doc.data();
+                        usuarios.doc(user.email).set(usuario); //Criando novo usuário
+                        if (emailAtual !== user.email) {
+                            usuarios.doc(emailAtual).delete().then(function () {}).catch(function (error) {
+                                console.error("Error removing document: ", error);
+                            });
+                        }
                     }
-                }
+                });
+            }).catch(function (error) {
+                window.alert("Email não pôde ser atualizado")
             });
-
-
         }).catch(function (error) {
-            window.alert("Email não pôde ser atualizado")
+            window.alert("Senha não pôde ser atualizado")
         });
     }).catch(function (error) {
         window.alert("Senha incorreta")
