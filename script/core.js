@@ -98,10 +98,59 @@ async function preencheUpdate() {
         }
     });
 
-    //
+}
 
+//TODO melhorar atualização
+function update() {
+    let user = firebase.auth().currentUser;
 
+    let usuarios = db.collection("users");
 
+    let nome = document.getElementById("nome").value;
+    let email = document.getElementById("email").value;
+    let senha = document.getElementById("senha").value;
+    let nascimento = document.getElementById("nascimento").value;
+    let radio = document.getElementsByName("genero");
+    let genero = getChecked(radio);
+
+    let emailAtual = user.email
+
+    firebase.auth().signInWithEmailAndPassword(emailAtual, senha).then(function() {
+        console.log("logou novamente");
+        user.updateEmail(email).then(function() {
+            console.log("Atualizando informações");
+            usuarios.doc(user.email).set({
+                name: nome,
+                email: email,
+                birthday: nascimento,
+                gender: genero,
+            }, {
+                merge: true
+            });
+            console.log("Pegando informações atualizadas");
+            usuarios.doc(email).get().then(function (doc) {
+                if (doc.exists) {
+                    let usuario = doc.data();
+                    console.log(usuario)
+                    usuarios.doc(email).set(usuario); //Criando novo usuário
+                }
+            });
+            if (emailAtual !== email) {
+                console.log("Deletando documento antigo");
+                usuarios.doc(emailAtual).delete().then(function () {
+                    console.log("Document successfully deleted!");
+                }).catch(function (error) {
+                    console.error("Error removing document: ", error);
+                });
+            }
+        }).catch(function (error) {
+            window.alert("Email não pôde ser atualizado")
+        });
+    }).catch(function(error) {
+        window.alert("Senha incorreta")
+    });
+
+    document.getElementById("senha").value = "";
 }
 
 // Atualizando informações sobre o que o usuário procura
