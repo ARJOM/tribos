@@ -117,9 +117,9 @@ function update() {
 
     firebase.auth().signInWithEmailAndPassword(emailAtual, senha).then(function() {
         console.log("logou novamente");
-        user.updateEmail(email).then(function() {
+        user.updateEmail(email).then(async function() {
             console.log("Atualizando informações");
-            usuarios.doc(user.email).set({
+            usuarios.doc(emailAtual).set({
                 name: nome,
                 email: email,
                 birthday: nascimento,
@@ -127,22 +127,26 @@ function update() {
             }, {
                 merge: true
             });
-            console.log("Pegando informações atualizadas");
-            usuarios.doc(email).get().then(function (doc) {
+            console.log(emailAtual)
+            usuarios.doc(emailAtual).get().then(function (doc) {
+                console.log(doc.exists)
                 if (doc.exists) {
+                    console.log("Pegando informações atualizadas");
                     let usuario = doc.data();
                     console.log(usuario)
-                    usuarios.doc(email).set(usuario); //Criando novo usuário
+                    usuarios.doc(user.email).set(usuario); //Criando novo usuário
+                    if (emailAtual !== user.email) {
+                        console.log("Deletando documento antigo");
+                        usuarios.doc(emailAtual).delete().then(function () {
+                            console.log("Document successfully deleted!");
+                        }).catch(function (error) {
+                            console.error("Error removing document: ", error);
+                    });
+                }
                 }
             });
-            if (emailAtual !== email) {
-                console.log("Deletando documento antigo");
-                usuarios.doc(emailAtual).delete().then(function () {
-                    console.log("Document successfully deleted!");
-                }).catch(function (error) {
-                    console.error("Error removing document: ", error);
-                });
-            }
+
+
         }).catch(function (error) {
             window.alert("Email não pôde ser atualizado")
         });
