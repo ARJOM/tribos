@@ -76,7 +76,7 @@ async function preencheUpdate() {
     let email;
     let lista = document.getElementsByName("genero");
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log("Há logado!");
             email = user.email;
@@ -100,7 +100,6 @@ async function preencheUpdate() {
 
 }
 
-//TODO melhorar atualização
 function update() {
     let user = firebase.auth().currentUser;
 
@@ -113,12 +112,10 @@ function update() {
     let radio = document.getElementsByName("genero");
     let genero = getChecked(radio);
 
-    let emailAtual = user.email
+    let emailAtual = user.email;
 
-    firebase.auth().signInWithEmailAndPassword(emailAtual, senha).then(function() {
-        console.log("logou novamente");
-        user.updateEmail(email).then(async function() {
-            console.log("Atualizando informações");
+    firebase.auth().signInWithEmailAndPassword(emailAtual, senha).then(function () {
+        user.updateEmail(email).then(function () {
             usuarios.doc(emailAtual).set({
                 name: nome,
                 email: email,
@@ -127,22 +124,15 @@ function update() {
             }, {
                 merge: true
             });
-            console.log(emailAtual)
             usuarios.doc(emailAtual).get().then(function (doc) {
-                console.log(doc.exists)
                 if (doc.exists) {
-                    console.log("Pegando informações atualizadas");
                     let usuario = doc.data();
-                    console.log(usuario)
                     usuarios.doc(user.email).set(usuario); //Criando novo usuário
                     if (emailAtual !== user.email) {
-                        console.log("Deletando documento antigo");
-                        usuarios.doc(emailAtual).delete().then(function () {
-                            console.log("Document successfully deleted!");
-                        }).catch(function (error) {
+                        usuarios.doc(emailAtual).delete().then(function () {}).catch(function (error) {
                             console.error("Error removing document: ", error);
-                    });
-                }
+                        });
+                    }
                 }
             });
 
@@ -150,7 +140,7 @@ function update() {
         }).catch(function (error) {
             window.alert("Email não pôde ser atualizado")
         });
-    }).catch(function(error) {
+    }).catch(function (error) {
         window.alert("Senha incorreta")
     });
 
@@ -164,7 +154,7 @@ function preencheBusca() {
     let email;
     let lista = document.getElementsByName("genero");
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log("Há logado!");
             email = user.email;
@@ -193,6 +183,7 @@ function busca() {
     if (user != null) {
         email = user.email;
     }
+
     let usuarios = db.collection("users");
 
     let minimo = document.getElementById("minimo").value;
@@ -209,7 +200,27 @@ function busca() {
     }, {
         merge: true
     });
+}
 
+// Delete de usuário
+
+function remove() {
+    let usuarios = db.collection("users");
+    var user = firebase.auth().currentUser;
+    let senha = document.getElementById("senha").value;
+    let email = user.email;
+    firebase.auth().signInWithEmailAndPassword(email, senha).then(function () {
+        usuarios.doc(email).delete().then(function () {
+            user.delete().then(function () {
+                //User deleted.
+                console.log("")
+            }).catch(function (error) {
+                console.log("Remover")
+            });
+        }).catch(function (error) {
+            window.alert("Error removing document: ", error);
+        });
+    });
 }
 
 // Validação
