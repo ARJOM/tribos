@@ -114,7 +114,7 @@ function update() {
     let nascimento = document.getElementById("nascimento").value;
     let radio = document.getElementsByName("genero");
     let genero = getChecked(radio);
-    if (novaSenha === null){
+    if (novaSenha === null) {
         novaSenha = senha;
     }
 
@@ -223,9 +223,9 @@ function remove() {
         usuarios.doc(email).delete().then(function () {
             user.delete().then(function () {
                 //User deleted.
-                console.log("")
+                console.log("");
             }).catch(function (error) {
-                console.log("Remover")
+                console.log("Remover");
             });
         }).catch(function (error) {
             window.alert("Error removing document: ", error);
