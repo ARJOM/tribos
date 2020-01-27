@@ -26,7 +26,7 @@ function getSimilaridade(base, usuario) {
     let similaridade = [];
     for (let outro in base) {
         if (outro !== usuario) {
-            similaridade.push([euclidiana(usuario, outro) * 100, outro]);
+            similaridade.push([euclidiana(base, usuario, outro) * 100, outro]);
         }
     }
     similaridade.sort();
@@ -35,7 +35,7 @@ function getSimilaridade(base, usuario) {
 }
 
 // Testando
-// for (usuario in base){
+// for (usuario in avaliacoes){
 //     console.log(usuario+":")
-//     console.log(getSimilaridade(usuario));
+//     console.log(getSimilaridade(avaliacoes, usuario));
 // }

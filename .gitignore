@@ -1,1 +1,6 @@
 script/firebase.js
+script/questions.js
+script/filter.js
+
+.idea
+.vscode
