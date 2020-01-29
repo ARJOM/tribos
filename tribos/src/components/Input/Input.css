@@ -1,0 +1,58 @@
+.campos-form{
+    width: 70%;
+    height: 450px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+}
+.campos-form label{
+    width: 80%;
+    font-size: 22px;
+    margin: 10px;
+}
+.campos-form input{
+    width: 80%;
+    height: 40px;
+    padding: 0 12px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    transition: .2s;
+    font-size: 16px;
+}
+.campos-form input[type=radio]{
+    width: 20%;
+    height: 20px;
+}
+.campos-form button{
+    width: 50%;
+    height: 45px;
+    background-color: #43A047;
+    border: none;
+    font-size: 18px;
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+.campos-form h5{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    color: #9E9E9E;
+}
+.campos-form a{
+    color: #9E9E9E;
+}
+.campos-form a:hover{
+    color: #43A047;
+}
+.campos-form input:hover{
+    border:solid 2px #43A047;
+}
